@@ -88,6 +88,21 @@ class App extends Component {
     this.props.history.push("smurf-form");
   };
 
+
+  updateSmurf = (e) => {
+    
+    axios.put(`http://localhost:3333/smurfs/${this.state.smurf.id}`, this.state.smurf)
+    .then(res => {
+      this.setState({
+        smurfs: res.data,
+        smurf: emptySmurf,
+        isUpdating: false
+      })
+      this.props.history.push('/')
+    })
+    .catch(err => console.log(err))
+  }
+
   render() {
     return (
       <div className="App">
@@ -120,8 +135,10 @@ class App extends Component {
             <SmurfForm
               {...props}
               postSmurf={this.postSmurf}
+              updateSmurf={this.updateSmurf}
               smurf={this.state.smurf}
               handleInputChange={this.handleInputChange}
+              isUpdating={this.state.isUpdating}
             />
           )}
         />

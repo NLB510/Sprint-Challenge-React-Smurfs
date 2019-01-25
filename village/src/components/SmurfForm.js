@@ -3,12 +3,16 @@ import axios from "axios";
 import styled from "styled-components"
 
 const SmurfForm = props => {
-  
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    props.isUpdating ? props.updateSmurf() : props.postSmurf()
+  }
 
 
     return (
       <FormContainer>
-        <form onSubmit={props.postSmurf}>
+        <form onSubmit={handleSubmit}>
           <input
             onChange={props.handleInputChange}
             placeholder="name"
@@ -27,7 +31,7 @@ const SmurfForm = props => {
             value={props.smurf.height}
             name="height"
           />
-          <button type="submit">Add to the village</button>
+          <button type="submit">{props.isUpdating ? 'Update Village' : 'Add to the Village'}</button>
         </form>
       </FormContainer>
     );
