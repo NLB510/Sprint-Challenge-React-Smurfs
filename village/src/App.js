@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import axios from "axios"
+import { Route, Link } from "react-router-dom";
 
+import styled from "styled-components";
 
 import './App.css';
+
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import NavBar from "./components/NavBar"
 
 class App extends Component {
   constructor(props) {
@@ -18,12 +22,12 @@ class App extends Component {
   // You'll need to make sure you have the right properties on state and pass them down to props.
   componentDidMount() {
     axios.get(`http://localhost:3333/smurfs`)
-    .then(res => {
-      this.setState({
-        smurfs: res.data
+      .then(res => {
+        this.setState({
+          smurfs: res.data
+        })
       })
-    })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
 
@@ -40,14 +44,32 @@ class App extends Component {
 
 
   render() {
-    
+
     return (
       <div className="App">
-        <SmurfForm postSmurf={this.postSmurf} />
-        <Smurfs smurfs={this.state.smurfs}  />
+        
+          <NavBar />
+        
+        
+        
+        <div className='link-container'>
+          <Link to="/smurf-form" className="app-link">Add A Smurf</Link>
+          <Link to="/" className="app-link">Smurf List</Link>
+        </div>
+        
+        <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs} />} />
+        <Route path="/smurf-form" render={props => <SmurfForm {...props} postSmurf={this.postSmurf} /> } />
+
       </div>
     );
   }
 }
+
+
+
+
+
+
+
 
 export default App;
