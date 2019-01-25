@@ -103,15 +103,25 @@ class App extends Component {
     .catch(err => console.log(err))
   }
 
+  cancelUpdate = e => {
+    e.preventDefault();
+
+    this.setState({
+      isUpdating: false
+    })
+
+    this.props.history.push('/')
+  }
+
   render() {
     return (
       <div className="App">
         <NavBar />
 
         <div className="link-container">
-          <Link to="/smurf-form" className="app-link">
+          {!this.state.isUpdating ? <Link to="/smurf-form" className="app-link">
             Add A Smurf
-          </Link>
+          </Link> : null }
           <Link to="/" className="app-link">
             Smurf List
           </Link>
@@ -136,6 +146,7 @@ class App extends Component {
               {...props}
               postSmurf={this.postSmurf}
               updateSmurf={this.updateSmurf}
+              cancelUpdate={this.cancelUpdate}
               smurf={this.state.smurf}
               handleInputChange={this.handleInputChange}
               isUpdating={this.state.isUpdating}
