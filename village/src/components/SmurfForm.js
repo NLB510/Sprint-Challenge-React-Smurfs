@@ -1,69 +1,53 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import styled from "styled-components"
+
+const SmurfForm = props => {
+  
 
 
-class SmurfForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      age: '',
-      height: ''
-    };
-  }
-
-  addSmurf = event => {
-    event.preventDefault();
-
-    const newSmurf = {
-      name: this.state.name,
-      age: this.state.age,
-      height: this.state.height
-    }
-
-
-    // add code to create the smurf using the api
-    this.props.postSmurf(newSmurf)
-
-
-    this.setState({
-      name: '',
-      age: '',
-      height: ''
-    });
-  }
-
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  render() {
     return (
-      <div className="SmurfForm">
-        <form onSubmit={this.addSmurf}>
+      <FormContainer>
+        <form onSubmit={props.postSmurf}>
           <input
-            onChange={this.handleInputChange}
+            onChange={props.handleInputChange}
             placeholder="name"
-            value={this.state.name}
+            value={props.smurf.name}
             name="name"
           />
           <input
-            onChange={this.handleInputChange}
+            onChange={props.handleInputChange}
             placeholder="age"
-            value={this.state.age}
+            value={props.smurf.age}
             name="age"
           />
           <input
-            onChange={this.handleInputChange}
+            onChange={props.handleInputChange}
             placeholder="height"
-            value={this.state.height}
+            value={props.smurf.height}
             name="height"
           />
           <button type="submit">Add to the village</button>
         </form>
-      </div>
+      </FormContainer>
     );
-  }
+  
 }
+
+
+/* 
+==== Form Component Styles
+*/
+
+
+const FormContainer = styled.div`
+  margin: 2% auto;
+  width: 50%;
+
+`
+
+
+
+
 
 export default SmurfForm;

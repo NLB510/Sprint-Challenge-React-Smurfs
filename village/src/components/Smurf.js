@@ -9,7 +9,7 @@ const Smurf = props => {
       <strong>{props.height} tall</strong>
       <p>{props.age} smurf years old</p>
       <ButtonContainer>
-        <Button color="secondary" size="sm">Edit</Button>
+        <Button color="secondary" size="sm" onClick={e => props.populateForm(e, props.id)}>Edit</Button>
         <Button color="danger" size="sm" onClick={(e) => props.deleteSmurf(e, props.id)}>Delete</Button>
       </ButtonContainer>
     </SmurfDiv>
